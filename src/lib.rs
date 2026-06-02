@@ -8,12 +8,11 @@
 #![deny(clippy::undocumented_unsafe_blocks)]
 #![deny(unsafe_op_in_unsafe_fn)]
 
-#[cfg(target_arch = "aarch64")]
-mod aarch64_mmio;
 pub mod fields;
+mod mmio_backend;
 mod physical;
-#[cfg(not(target_arch = "aarch64"))]
-mod volatile_mmio;
+#[cfg(feature = "volatile-backend")]
+mod volatile_backend;
 
 use crate::fields::{ReadOnly, ReadPure, ReadPureWrite, ReadWrite, WriteOnly};
 use core::{
